@@ -2,6 +2,9 @@ version: '3'
 services:
   treopim:
     build: ./
+    volumes:
+      - ./data/www:/var/www/html
+      - ./data/logs/:/var/log/docker
     ports:
      - "8080:80"
     links:
@@ -11,9 +14,7 @@ services:
     image: "mysql:5"
     ports:
      - "3306:3306"
-    volumes: 
-      - "./mysql_data:/var/lib/mysql"
+    volumes:
+     - ./data/mysql/:/var/lib/mysql
     environment:
-      - "MYSQL_ROOT_HOST=%"
-      - "MYSQL_ROOT_PASSWORD=my-secret-pw"
-    command: --bind-address=0.0.0.0 --default-authentication-plugin=mysql_native_password
+      MYSQL_ROOT_PASSWORD: root
